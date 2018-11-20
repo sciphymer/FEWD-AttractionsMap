@@ -4,9 +4,14 @@ class MyMap extends Component {
 
 	constructor(props){
     super(props);
-
     this.map = React.createRef();
-  }
+    this.loc_HK={
+    	lat:22.352991,
+    	lng:113.987271
+    	};
+  	}
+
+
 
 	componentDidMount() {
 		this.loadGoogleMap();
@@ -32,9 +37,9 @@ class MyMap extends Component {
 
 	initMap(){
 		 let map = new window.google.maps.Map(this.map.current, {
-			          center: {lat: 40.7413549, lng: -73.9980244},
+			          center: {lat: this.loc_HK.lat, lng: this.loc_HK.lng},
 			          zoom: 13
-		        });
+		        }).bind(this);
 		 console.log(map);
 	};
 
