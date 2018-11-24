@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 class SearchMenu extends Component {
 
 	constructor(props){
@@ -16,8 +15,10 @@ class SearchMenu extends Component {
 	}
 
 	render(){
+		let showMenu = this.props.showSearchMenu;
+		console.log("showSearchMenu=" + showMenu);
 		return(
-			<div className="location-menu">
+			<div className={`location-menu ${showMenu?"open":""}`}>
 				<p className="location-menu-title">
 					Hong Kong Attractions
 				</p>

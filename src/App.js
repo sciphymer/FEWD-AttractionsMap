@@ -19,13 +19,18 @@ class MyNeighborhoodApp extends Component {
           {title: 'Tian Tan Buddha', location:{lat:22.2547957,lng:113.9026526}},
           {title: 'Mai Po Nature Reserve', location:{lat:22.4811309,lng:114.0529839}},
           {title: 'Temple Street Night Market', location:{lat:22.3065234,lng:114.1677865}}
-          ]
+          ],
+      showSearchMenu:false
      }
   }
 
   componentDidMount() {
   }
 
+  toggleShowSearchMenu=()=>{
+    let currentState=this.state.showSearchMenu;
+    currentState?this.setState({showSearchMenu:false}):this.setState({showSearchMenu:true});
+  }
 
 
   render() {
@@ -33,9 +38,11 @@ class MyNeighborhoodApp extends Component {
           <div className="app">
               <SearchMenu
                   mapLocations={this.state.locations}
+                  showSearchMenu={this.state.showSearchMenu}
               />
               <MyMap
                   mapLocations={this.state.locations}
+                  toggleShowSearchMenu={this.toggleShowSearchMenu}
               />
           </div>
     );
