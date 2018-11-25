@@ -14,7 +14,8 @@ class MyMap extends Component {
     	};
     this.map=null;
     this.state ={
-        mapIsReady:false
+        mapIsReady:false,
+        markers:[]
     }
   }
 
@@ -32,7 +33,6 @@ class MyMap extends Component {
 			script.id="google-map";
 			document.body.appendChild(script);
 			script.onload = () => {
-				console.log("load succesfully");
 				this.initMap();
         this.showLocMarkers(this.props.mapLocations);
 			}
@@ -45,11 +45,9 @@ class MyMap extends Component {
 			          zoom: 11
 		        });
      this.setState({mapIsReady:true});
-		 console.log(this.map);
 	};
 
 	showLocMarkers = (locations) =>{
-    console.log(this.props.locations);
 		let markers = [];
 		const defaultIcon = this.makeMarkerIcon('0091ff');
 		const highlightedIcon = this.makeMarkerIcon('FFFF24');
@@ -68,7 +66,6 @@ class MyMap extends Component {
 
           // Push the marker to our array of markers.
           markers.push(marker);
-          console.log(markers);
           let largeInfowindow = new window.google.maps.InfoWindow();
           // Create an onclick event to open the large infowindow at each marker.
           marker.addListener('click', ((marker,largeInfowindow)=>{
@@ -76,6 +73,11 @@ class MyMap extends Component {
               this.populateInfoWindow(marker, largeInfowindow);
             };
           })(marker, largeInfowindow));
+          marker.addListener('click',((marker)=>{
+            return ()=>{
+              this.toggleBounce(marker);
+            };
+          })(marker));
           // Two event listeners - one for mouseover, one for mouseout,
           // to change the colors back and forth.
           marker.addListener('mouseover', function() {
@@ -92,6 +94,7 @@ class MyMap extends Component {
           bounds.extend(markers[i].position);
         }
         this.map.fitBounds(bounds);
+        this.setState({markers:markers});
 	}
 
 	makeMarkerIcon = (markerColor) => {
@@ -115,6 +118,14 @@ class MyMap extends Component {
           infowindow.addListener('closeclick', ()=>{
             infowindow.marker = null;
           });
+          let markers = this.state.markers
+          console.log(infowindow);
+
+          // if (markers>0){
+          //     markers.forEach((marker)=>{
+          //     infowindow.marker = null;
+          //     });
+          // }
           // In case the status is OK, which means the pano was found, compute the
           // position of the streetview image, then calculate the heading, then get a
           // panorama from that and set the options
@@ -125,10 +136,35 @@ class MyMap extends Component {
         }
     }
 
+    toggleBounce=(target_marker) =>{
+        let markers = this.state.markers;
+        console.log(markers);
+        if (target_marker.getAnimation() !== null) {
+          target_marker.setAnimation(null);
+        } else {
+          if (markers.length>0){
+            console.log(markers);
+            markers.forEach((marker)=>{
+              marker.setAnimation(null);
+            });
+          }
+          target_marker.setAnimation(window.google.maps.Animation.BOUNCE);
+        }
+    }
+
+    triggerMapMarkerClickFrMenu=(selectedMarkerName,markersOnMap)=>{
+      let selectedMarkerOnMap=null;
+      if (selectedMarkerName!==""&& markersOnMap.length>0){
+        selectedMarkerOnMap = markersOnMap.filter((marker) => marker.title===selectedMarkerName);
+        if(selectedMarkerOnMap!==null){
+          window.google.maps.event.trigger(selectedMarkerOnMap[0],'click');
+        }
+      }
+    }
+
 	render(){
-    // if(this.state.mapIsReady){
-    //   this.showLocMarkers(this.props.mapLocations);
-    // }
+    // add Animation to the Map's marker then Click from the side menu
+    this.triggerMapMarkerClickFrMenu(this.props.selectedLocation,this.state.markers);
 
 		return(
       <div id="map_canva">

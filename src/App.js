@@ -16,9 +16,12 @@ class MyNeighborhoodApp extends Component {
   }
 
   selectedLocationHandler=(name)=>{
-      (name!=="")?this.setState({selectedLocation:name}):this.setState({selectedLocation:""});
-      console.log("App.js");
-      console.log(this.state.selectedLocation);
+      // let currentState=this.state.selectedLocation;
+      // console.log("currentState="+currentState);
+      // if (currentState!==name){
+        this.setState({selectedLocation:name});
+      //   console.log(this.state.selectedLocation);
+      // }
   }
 
   componentWillMount() {
