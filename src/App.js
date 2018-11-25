@@ -11,17 +11,13 @@ class MyNeighborhoodApp extends Component {
     this.state = {
       locations:{},
       showSearchMenu:false,
-      selectedLocation:""
+      selectedLocation:"",
+      query:{}
      }
   }
 
   selectedLocationHandler=(name)=>{
-      // let currentState=this.state.selectedLocation;
-      // console.log("currentState="+currentState);
-      // if (currentState!==name){
         this.setState({selectedLocation:name});
-      //   console.log(this.state.selectedLocation);
-      // }
   }
 
   componentWillMount() {
@@ -36,20 +32,31 @@ class MyNeighborhoodApp extends Component {
   getLocationAll=()=>{
     let loc = require('./allLocations.json');
     this.setState({locations:loc.locations});
+    this.setState({query:loc.locations});
   }
 
-
+  doLocationFilter=()=>{
+    let i_query = document.querySelectorAll(".search-bar>input")[0].value;
+    if(i_query==="")
+      this.setState({query:this.state.locations})
+    else{
+      let locationList = this.state.locations;
+      let query = locationList.filter(list=> list.title.toLowerCase().includes(i_query.toLowerCase()));
+      this.setState({query:query});
+    }
+  }
 
   render() {
     return (
           <div className="app">
               <SearchMenu
-                  mapLocations={this.state.locations}
+                  mapLocations={this.state.query}
                   showSearchMenu={this.state.showSearchMenu}
                   selectedLocationHandler={this.selectedLocationHandler}
+                  doLocationFilter={this.doLocationFilter}
               />
               <MyMap
-                  mapLocations={this.state.locations}
+                  mapLocations={this.state.query}
                   toggleShowSearchMenu={this.toggleShowSearchMenu}
                   selectedLocation={this.state.selectedLocation}
               />
