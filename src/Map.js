@@ -126,13 +126,25 @@ class MyMap extends Component {
           // In case the status is OK, which means the pano was found, compute the
           // position of the streetview image, then calculate the heading, then get a
           // panorama from that and set the options
-
-          infowindow.setContent('<div>' + marker.title + '</div><img id="photo" src="http://flickr.com/photo.gne?id=32150568198"/>');
+          let result = this.wikiSearch(marker.title);
+          infowindow.setContent('<div>' + marker.title + '</div>'+'<p>'+result+'</p>');
           // Open the infowindow on the correct marker.
           infowindow.open(this.map, marker);
         // }
     }
 
+    wikiSearch=(keyword)=>{
+      fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${keyword}`,{method: 'GET'})
+      .then(res=>res.json())
+      .then(data=>{
+          let result = data.query.pages;
+          let key = Object.keys(result);
+          if (key<0)
+            return "no details is found."
+          else
+            return result.keys.extract.substring(0,100)+"..."
+      });
+    }
     //set animation to the markers while clicking on them
     toggleBounce=(target_marker) =>{
         let markers = this.state.markers;
