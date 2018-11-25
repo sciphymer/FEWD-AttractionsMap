@@ -16,7 +16,7 @@ class SearchMenu extends Component {
 
 	render(){
 		let showMenu = this.props.showSearchMenu;
-		console.log("showSearchMenu=" + showMenu);
+		let mapLocation = this.props.mapLocations;
 		return(
 			<div className={`location-menu ${showMenu?"open":""}`}>
 				<p className="location-menu-title">
@@ -26,6 +26,14 @@ class SearchMenu extends Component {
 					<input type="text" placeholder="Attractions Location"/>
 					<button onClick={this.doLocationFilter}>Filter</button>
 				</div>
+				<li>
+				{mapLocation.map((location)=>{
+					return(
+					<ul className="locationList" onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
+					>{location.title}</ul>
+					)
+				})}
+				</li>
 			</div>
 		)
 	}

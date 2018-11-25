@@ -68,11 +68,14 @@ class MyMap extends Component {
 
           // Push the marker to our array of markers.
           markers.push(marker);
+          console.log(markers);
           let largeInfowindow = new window.google.maps.InfoWindow();
           // Create an onclick event to open the large infowindow at each marker.
-          // marker.addListener('click', function() {
-          //   this.populateInfoWindow(marker, largeInfowindow);
-          // });
+          marker.addListener('click', ((marker,largeInfowindow)=>{
+            return ()=>{
+              this.populateInfoWindow(marker, largeInfowindow);
+            };
+          })(marker, largeInfowindow));
           // Two event listeners - one for mouseover, one for mouseout,
           // to change the colors back and forth.
           marker.addListener('mouseover', function() {
@@ -109,7 +112,7 @@ class MyMap extends Component {
           infowindow.setContent('');
           infowindow.marker = marker;
           // Make sure the marker property is cleared if the infowindow is closed.
-          infowindow.addListener('closeclick', function() {
+          infowindow.addListener('closeclick', ()=>{
             infowindow.marker = null;
           });
           // In case the status is OK, which means the pano was found, compute the

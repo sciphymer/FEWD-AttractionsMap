@@ -16,29 +16,42 @@ html, body, #root,.app, #map {
   height:100%;
   position: relative;
   margin-left: -300px;
-  padding:0px;
+  padding:10px;
   z-index: 1;
   top: 0;
   background-color: black;
   overflow-x: hidden;
   transition: 0.5s;
+  box-sizing: border-box;
 }
 
 .location-menu.open{
 	margin-left: 0px;
-/* 	margin-left: 300px;
-	padding:20px; */
 }
 
 #map {
 	width:100%;
 }
 
+/* Location Search Menu */
+
 .location-menu-title{
 	font-size: 20;
   color: white;
   font-weight: 500;
+}
 
+.locationList{
+  color: white;
+  font-weight: 200;
+  font-size: 15px;
+  padding: 10px 0;
+  margin: 0;
+}
+
+.locationList:hover{
+  cursor:pointer;
+  color: yellow;
 }
 
 /*hamburger button icon*/
