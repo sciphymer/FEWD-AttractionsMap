@@ -2,19 +2,24 @@ html, body, #root,.app, #map {
 	height: 100%;
 }
 
-.app, #map {
+.app{
   display:flex;
   max-width:1200px;
+  position:center;
+}
+
+#map{
+	display:flex;
+	width:100%;
 }
 
 #map_canva{
-  width: 0.75vw;
+  width: 75vw;
   transition: margin-left 0.5s;
 }
 
 .location-menu{
-  mini-width:300px;
-  width:0.25px;
+  width:300px;
   height:100%;
   position: relative;
   /*margin-left: -300px;*/
@@ -26,7 +31,7 @@ html, body, #root,.app, #map {
   overflow-x: hidden;
   transition: 0.5s;
   box-sizing: border-box;
-  display:none;
+  display:inline-block;
 }
 
 .location-menu.open{
@@ -76,6 +81,7 @@ html, body, #root,.app, #map {
 .hamburgerbtn .bar1,
 .hamburgerbtn .bar2,
 .hamburgerbtn .bar3 {
+	display: none;
     width: 30px;
     height: 4px;
     background-color: black;
@@ -95,13 +101,24 @@ html, body, #root,.app, #map {
     transform: rotate(45deg) translate(-8px, -8px);
 }
 
-@media (min-width: 600px) {
+@media (max-width: 600px) {
     .location-menu{
-	display:inline;
+	display:block;
 	width:200px;
 	margin-left:-200px;
 	}
-    .hamburgerbtn{
-	display:inline-block;
+    .hamburgerbtn,
+    .hamburgerbtn .bar1,
+	.hamburgerbtn .bar2,
+	.hamburgerbtn .bar3{
+	display:block;
+	}
+	#map_canva{
+		width:100vw;
+	}
+	.search-bar input{
+		box-sizing:border-box;
+		width:20vw;
+		margin:5px;
 	}
 }
