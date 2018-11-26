@@ -68,7 +68,7 @@ class MyMap extends Component {
 
           // Push the marker to our array of markers.
           markers.push(marker);
-          let largeInfowindow = new window.google.maps.InfoWindow();
+          let largeInfowindow = new window.google.maps.InfoWindow({maxWidth:200});
           infoWindows.push(largeInfowindow);
           // Create an onclick event to open the large infowindow at each marker
           // and add bounce animation to markers.
@@ -114,35 +114,28 @@ class MyMap extends Component {
    populateInfoWindow = (marker, infowindow)=>{
 
             // clear other opening infoWindow, only one can open at a time
-          this.state.infoWindows.map((infoWindows)=>{infoWindows.close()});
+          this.state.infoWindows.map(infoWindows=>infoWindows.close());
           infowindow.setContent('');
           infowindow.marker = marker;
           // Make sure the marker property is cleared if the infowindow is closed.
           infowindow.addListener('closeclick', ()=>{
             infowindow.marker = null;
           });
-          let markers = this.state.markers
 
-          // In case the status is OK, which means the pano was found, compute the
-          // position of the streetview image, then calculate the heading, then get a
-          // panorama from that and set the options
-          let result = this.wikiSearch(marker.title);
-          infowindow.setContent('<div>' + marker.title + '</div>'+'<p>'+result+'</p>');
+          this.wikiSearch(marker.title,infowindow);
+
           // Open the infowindow on the correct marker.
           infowindow.open(this.map, marker);
-        // }
+
     }
 
-    wikiSearch=(keyword)=>{
-      fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${keyword}`,{method: 'GET'})
-      .then(res=>res.json())
-      .then(data=>{
-          let result = data.query.pages;
-          let key = Object.keys(result);
-          if (key<0)
-            return "no details is found."
-          else
-            return result.keys.extract.substring(0,100)+"..."
+    wikiSearch=(keyword,infowindow)=>{
+      fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${keyword}`)
+      .then((res)=>res.json())
+      .then((data)=>{
+          let result = Object.values(data.query.pages);
+          let content = result[0]["extract"].substring(0,300)+"...";
+          infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>'+"extracted from Wikipedia.org"+'</i></div>');
       });
     }
     //set animation to the markers while clicking on them
@@ -160,14 +153,12 @@ class MyMap extends Component {
         }
     }
 
-    //trigger the map location marker by clicking the corresponding text label on search menu
     triggerMapMarkerClickFrMenu=(selectedMarkerName,markersOnMap)=>{
       let selectedMarkerOnMap=null;
       if (selectedMarkerName!==""&& markersOnMap.length>0){
         selectedMarkerOnMap = markersOnMap.filter((marker) => marker.title===selectedMarkerName);
         if(selectedMarkerOnMap!==null){
           window.google.maps.event.trigger(selectedMarkerOnMap[0],'click');
-          // window.google.maps.event.trigger(selectedMarkerOnMap[0],'mouseover');
         }
       }
     }
@@ -191,7 +182,7 @@ class MyMap extends Component {
 	render(){
     // hide the location markers according to the search menu filtering
     this.hideMarkers(this.props.mapLocations);
-    // add Animation to the Map's marker then Click from the side menu
+    //trigger the map location marker by clicking the corresponding text label on search menu
     this.triggerMapMarkerClickFrMenu(this.props.selectedLocation,this.state.markers);
 		return(
       <div id="map_canva">

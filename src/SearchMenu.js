@@ -22,9 +22,9 @@ class SearchMenu extends Component {
 					<button onClick={this.props.doLocationFilter}>Filter</button>
 				</div>
 				<li>
-				{mapLocation.map((location)=>{
+				{mapLocation.map((location,index)=>{
 					return(
-					<ul className="locationList" onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
+					<ul key={index} className="locationList" onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
 					>{location.title}</ul>
 					)
 				})}

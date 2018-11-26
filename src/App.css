@@ -6,6 +6,7 @@ html, body, #root,.app, #map {
   display:flex;
   max-width:1200px;
   position:center;
+  margin: auto;
 }
 
 #map{
@@ -120,5 +121,7 @@ html, body, #root,.app, #map {
 		box-sizing:border-box;
 		width:20vw;
 		margin:5px;
+    margin-left: 0;
 	}
+
 }
