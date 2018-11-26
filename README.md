@@ -1,44 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+My Neighborhood Map Project
 
-## Available Scripts
+##Introduction
+This is a React framework project showing main attractions in Hong Kong on Google Map. 
+It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and with Google Map APIs.
+Since this project is focus on frontend technology, so there isn't database for storing data and a json file is used instead.
 
-In the project directory, you can run:
+##Features
+This web app mainly divided into following parts:
 
-### `npm start`
+###Map Canva:
+- during the map initialization, locations data of attractions will be loaded from a "location.json" as a marker on the map.
+- markers when clicked, they will have bouncing animation, highlighted and pop up a info window with location details.
+- marker's info window contents show location summary and is retrieved with Wikipedia's api get request.
+###Side bar Menu
+- side bar menu "filter button" can filter the attraction location according to the keywords inputed to the text field.
+It is case in-sensative and includes space.
+###Responsive UI
+- the web application is responsive to to browser size, when the device screen size is small, the side bar menu will collapse and hide, with a hamburger button to toggle it.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+##How to run the application
+At command terminal, use `npm install` to install project module dependencies and then use `npm start` to start the react node server. The web application can then be access through "https://localhost:3000" in browser.
+A Google map api key need to be registered and input to the Map.js in order for the Google map service to work.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+##Appendix
+This project has used APIs of Google Map and wikipedia
 
-### `npm test`
+Hope you like this project! Thank you!
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project is developed by Vincent Ng @2018 Course Project of Udacity Frontend Web Development nanodegree.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
