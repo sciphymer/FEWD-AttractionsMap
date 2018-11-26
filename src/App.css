@@ -4,18 +4,21 @@ html, body, #root,.app, #map {
 
 .app, #map {
   display:flex;
+  max-width:1200px;
 }
 
 #map_canva{
-  width: 100%;
+  width: 0.75vw;
   transition: margin-left 0.5s;
 }
 
 .location-menu{
-  width:300px;
+  mini-width:300px;
+  width:0.25px;
   height:100%;
   position: relative;
-  margin-left: -300px;
+  /*margin-left: -300px;*/
+  margin-left:0;
   padding:10px;
   z-index: 1;
   top: 0;
@@ -23,6 +26,7 @@ html, body, #root,.app, #map {
   overflow-x: hidden;
   transition: 0.5s;
   box-sizing: border-box;
+  display:none;
 }
 
 .location-menu.open{
@@ -57,7 +61,7 @@ html, body, #root,.app, #map {
 /*hamburger button icon*/
 
 .hamburgerbtn{
-  display: inline-block;
+    display: none;
     cursor: pointer;
     position: absolute;
     margin: 10px;
@@ -89,4 +93,15 @@ html, body, #root,.app, #map {
 .change .bar3 {
     -webkit-transform: rotate(45deg) translate(-8px, -8px);
     transform: rotate(45deg) translate(-8px, -8px);
+}
+
+@media (min-width: 600px) {
+    .location-menu{
+	display:inline;
+	width:200px;
+	margin-left:-200px;
+	}
+    .hamburgerbtn{
+	display:inline-block;
+	}
 }
