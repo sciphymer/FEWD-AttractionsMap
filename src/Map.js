@@ -37,6 +37,12 @@ class MyMap extends Component {
 				this.initMap();
                 this.showLocMarkers(this.props.mapLocations);
 			}
+      //handle error case
+      script.onerror = () => {
+        let h1 = document.createElement('h1');
+        h1.content="Error: Fail to load Google Map.!"
+        this.map_e.current.appendChild(h1);
+      }
 		}
 	}
 
@@ -136,7 +142,7 @@ class MyMap extends Component {
           let result = Object.values(data.query.pages);
           let content = result[0]["extract"].substring(0,300)+"...";
           infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>'+"extracted from Wikipedia.org"+'</i></div>');
-      });
+      }).catch(infowindow.setContent('<div>Error to Retrieve Info from Wiki....</div>'));
     }
     //set animation to the markers while clicking on them
     toggleBounce=(target_marker) =>{
