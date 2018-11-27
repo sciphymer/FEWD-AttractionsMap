@@ -71,6 +71,10 @@ label{
 ul{
   list-style-type: none;
 }
+
+[role="button"]:focus{
+  color: yellow;
+}
 /*hamburger button icon*/
 
 .hamburgerbtn{

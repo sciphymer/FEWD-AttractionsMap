@@ -1,7 +1,7 @@
 My Neighborhood Map Project
 
 ##Introduction
-- This is a React framework project showing main attractions in Hong Kong on Google Map. 
+- This is a React framework project showing main attractions in Hong Kong on Google Map.
 It is bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and with Google Map APIs.
 Since this project is focus on frontend technology, so only a json file is used for storing location data and there is no backend technology used.
 
@@ -21,6 +21,13 @@ It is case in-sensative and includes space.
 ##How to run the application
 - At command terminal, use `npm install` to install project module dependencies, then use `npm start` to start the react node server. The web application can then be accessed through "https://localhost:3000" in browser.
 A Google map api key need to be registered and added to the "Map.js" in order for the Google map service to work.
+
+##To enable service worker
+- If you want your app to work offline and load faster, you can change unregister() to register() in index.js. Then at the project folder, use `npm run build` to build the application.
+If you are using Node environment, use:
+`npm install -g serve`
+`serve -s build`
+and the static site will serve on port 5000.
 
 ##Appendix
 - This project has used APIs from Google Map and Wikipedia.

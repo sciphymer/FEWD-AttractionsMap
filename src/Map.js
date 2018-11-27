@@ -142,7 +142,7 @@ class MyMap extends Component {
           try{
             let result = Object.values(data.query.pages);
             let content = result[0]["extract"].substring(0,300)+"...";
-            infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>'+"extracted from Wikipedia.org"+'</i></div>');
+            infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>extracted from Wikipedia.org</i></div>');
           }
           catch(err){infowindow.setContent('<div><b>' + keyword + '</b></div><div>No information is found.</div>')}
       })
