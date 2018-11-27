@@ -39,9 +39,9 @@ class MyMap extends Component {
 			}
       //handle error case
       script.onerror = () => {
-        let h1 = document.createElement('h1');
-        h1.content="Error: Fail to load Google Map.!"
-        this.map_e.current.appendChild(h1);
+        let h3 = document.createElement('h3');
+        h3.innerText="Ooops...Fail to load Google Map."
+        this.map_e.current.appendChild(h3);
       }
 		}
 	}
@@ -137,12 +137,15 @@ class MyMap extends Component {
 
     wikiSearch=(keyword,infowindow)=>{
       fetch(`https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=${keyword}`)
-      .then((res)=>res.json())
+      .then((res)=>res.json()).catch(()=>infowindow.setContent('<div>Error to Retrieve Info from Wiki....</div>'))
       .then((data)=>{
-          let result = Object.values(data.query.pages);
-          let content = result[0]["extract"].substring(0,300)+"...";
-          infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>'+"extracted from Wikipedia.org"+'</i></div>');
-      }).catch(infowindow.setContent('<div>Error to Retrieve Info from Wiki....</div>'));
+          try{
+            let result = Object.values(data.query.pages);
+            let content = result[0]["extract"].substring(0,300)+"...";
+            infowindow.setContent('<div><b>' + keyword + '</b></div><p>'+content+'</p><div><i>'+"extracted from Wikipedia.org"+'</i></div>');
+          }
+          catch(err){infowindow.setContent('<div><b>' + keyword + '</b></div><div>No information is found.</div>')}
+      })
     }
     //set animation to the markers while clicking on them
     toggleBounce=(target_marker) =>{
