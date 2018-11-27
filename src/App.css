@@ -45,6 +45,10 @@ html, body, #root,.app, #map {
 
 /* Location Search Menu */
 
+label{
+  display: none;
+}
+
 .location-menu-title{
 	font-size: 20;
   color: white;
@@ -64,6 +68,9 @@ html, body, #root,.app, #map {
   color: yellow;
 }
 
+ul{
+  list-style-type: none;
+}
 /*hamburger button icon*/
 
 .hamburgerbtn{

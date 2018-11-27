@@ -18,17 +18,17 @@ class SearchMenu extends Component {
 					Hong Kong Attractions
 				</p>
 				<div className="search-bar">
-					<input type="text" placeholder="Attractions Location"/>
-					<button onClick={this.props.doLocationFilter}>Filter</button>
+					<label for="location_input">Attractions location</label>
+					<input id="location_input" type="text" tabindex="0" placeholder="Attractions Location"/>
+					<label for="filter button">filter</label>
+					<button id="filter button" tabindex="0" onClick={this.props.doLocationFilter}>Filter</button>
 				</div>
-				<li>
 				{mapLocation.map((location,index)=>{
 					return(
-					<ul key={index} className="locationList" onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
-					>{location.title}</ul>
+					<div role="list" tabindex="0" key={index} className="locationList" onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}>
+					{location.title}</div>
 					)
 				})}
-				</li>
 			</div>
 		)
 	}
