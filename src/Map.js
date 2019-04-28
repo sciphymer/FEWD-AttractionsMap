@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import HamburgerBtn from './Button.js';
+
 class MyMap extends Component {
 
 	constructor(props){
@@ -7,7 +9,6 @@ class MyMap extends Component {
     this.map_e = React.createRef();
     this.hamburgerbtn = React.createRef();
     this.apiKey = "AIzaSyA6XSB6rNPkeb9op-UCg2dt21cq2QM2Mv8";
-    // this.apiKey="";
     this.loc_HK={
     	lat:22.3526735,
     	lng:114.15
@@ -204,6 +205,11 @@ class MyMap extends Component {
 	}
 }
 
+MyMap.propTypes = {
+  mapLocations: PropTypes.object,
+  toggleShowSearchMenu: PropTypes.func,
+  selectedLocation: PropTypes.string
+}
 
 
 export default MyMap

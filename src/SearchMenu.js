@@ -1,4 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+const Button = (props) =>(
+	props.mapLocation.map((location,index)=>{
+		return(
+			<div role="button" tabindex="0" key={index} className="locationList"
+				 onClick={(e)=>{props.selectedLocationHandler(e.target.innerText)}}
+				 onKeyPress={(e)=>{props.selectedLocationHandler(e.target.innerText)}}>
+			{location.title}</div>
+		);
+	}))
+
 class SearchMenu extends Component {
 
 	constructor(props){
@@ -23,18 +35,20 @@ class SearchMenu extends Component {
 					<label for="filter button">filter</label>
 					<button id="filter button" tabindex="0" onClick={this.props.doLocationFilter}>Filter</button>
 				</div>
-				{mapLocation.map((location,index)=>{
-					return(
-					<div role="button" tabindex="0" key={index} className="locationList"
-					onClick={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
-					onKeyPress={(e)=>{this.props.selectedLocationHandler(e.target.innerText)}}
-					>
-					{location.title}</div>
-					)
-				})}
+				<Button
+				mapLocation={mapLocation}
+				selectedLocationHandler={this.props.selectedLocationHandler}
+				/>
 			</div>
 		)
 	}
+}
+
+SearchMenu.propTypes = {
+	mapLocations: PropTypes.object,
+	showSearchMenu: PropTypes.bool,
+	selectedLocationHandler: PropTypes.func,
+	doLocationFilter: PropTypes.func
 }
 
 export default SearchMenu
